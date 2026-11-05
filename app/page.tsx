@@ -6,3 +6,5 @@ export default async function HomePage() {
 
   return <HomeExploreExperience isLoggedIn={Boolean(session?.user)} />;
 }
+
+<p>Este es un cambio en la rama dev.</p>
