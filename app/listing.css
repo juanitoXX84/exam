@@ -1,0 +1,273 @@
+/* Catálogos de establecimientos (restaurantes, hospedaje, etc.) */
+
+.nemi-listing-toolbar {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.04), transparent 55%),
+    rgba(255, 255, 255, 0.02);
+}
+
+.nemi-listing-toolbar-block + .nemi-listing-toolbar-block {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.nemi-listing-toolbar-label {
+  margin-bottom: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 550;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.nemi-listing-search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.nemi-listing-search .nemi-input {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.nemi-listing-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.nemi-back-link--truncate {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nemi-listing-chip {
+  display: inline-flex;
+  align-items: center;
+  max-width: 11rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  padding: 0.38rem 0.82rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+.nemi-listing-chip:hover {
+  border-color: var(--border-strong);
+  color: var(--foreground);
+}
+
+.nemi-listing-chip.is-active {
+  border-color: rgba(45, 212, 191, 0.45);
+  background: rgba(45, 212, 191, 0.1);
+  color: var(--accent);
+}
+
+@media (max-width: 639px) {
+  .nemi-listing-toolbar {
+    padding: 0.85rem 0.9rem;
+  }
+
+  .nemi-listing-search {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nemi-listing-search .nemi-input,
+  .nemi-listing-search .nemi-btn {
+    width: 100%;
+    flex: none;
+  }
+
+  .nemi-listing-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.15rem;
+  }
+
+  .nemi-listing-chips::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nemi-listing-chip {
+    flex-shrink: 0;
+  }
+
+  .nemi-listing-card-title {
+    font-size: 1rem;
+  }
+
+  .nemi-listing-card-body {
+    padding: 0.85rem 0.9rem 0.95rem;
+  }
+}
+
+.nemi-listing-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .nemi-listing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.1rem;
+  }
+}
+
+.nemi-listing-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-solid);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 180ms ease;
+}
+
+.nemi-listing-card:hover {
+  border-color: rgba(45, 212, 191, 0.45);
+}
+
+.nemi-listing-card-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--surface-elevated);
+}
+
+.nemi-listing-card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 420ms ease;
+}
+
+.nemi-listing-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(8, 10, 14, 0.72));
+  pointer-events: none;
+}
+
+.nemi-listing-card-price {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  z-index: 1;
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(10, 12, 15, 0.78);
+  backdrop-filter: blur(8px);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.nemi-listing-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.95rem 1rem 1.05rem;
+}
+
+.nemi-listing-card-title {
+  margin: 0;
+  font-family: var(--font-display), serif;
+  font-size: 1.08rem;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+}
+
+.nemi-listing-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.65rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.nemi-listing-card-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 550;
+  color: #fcd34d;
+}
+
+.nemi-listing-card-rating.is-muted {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.nemi-listing-card-desc {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.nemi-listing-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.nemi-listing-card-tag {
+  padding: 0.18rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid rgba(45, 212, 191, 0.25);
+  background: rgba(45, 212, 191, 0.08);
+  font-size: 0.68rem;
+  color: var(--accent);
+}
+
+.nemi-listing-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 0.35rem;
+}
+
+.nemi-listing-card-footer--solo {
+  justify-content: flex-end;
+}
+
+.nemi-listing-card-cta {
+  font-size: 0.8rem;
+  font-weight: 550;
+  color: var(--accent);
+  transition: color 160ms ease;
+}
+
+.nemi-listing-card:hover .nemi-listing-card-cta {
+  color: #14b8a6;
+}

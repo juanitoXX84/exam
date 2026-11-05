@@ -1,0 +1,707 @@
+/* —— Destino hub (hospitality editorial) —— */
+
+.nemi-dest-page {
+  overflow-x: clip;
+  background: #0e1210;
+}
+
+body:has(.nemi-dest-page) .nemi-site-header {
+  border-bottom-color: transparent;
+}
+
+/* Hero full-bleed */
+.nemi-dest-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: min(88dvh, 52rem);
+  margin-top: -3.5rem;
+  padding: calc(3.5rem + 1.5rem) 1.25rem 4.5rem;
+  overflow: hidden;
+}
+
+.nemi-dest-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.nemi-dest-hero-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.02);
+  animation: nemi-dest-hero- ken 14s ease-out both;
+}
+
+.nemi-dest-hero-atmosphere {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 55% 40%, rgba(45, 212, 191, 0.14), transparent 65%),
+    linear-gradient(155deg, #121820, #0c1016 70%);
+}
+
+.nemi-dest-hero-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8, 12, 10, 0.42) 0%,
+      rgba(8, 12, 10, 0.22) 38%,
+      rgba(8, 12, 10, 0.72) 100%
+    ),
+    linear-gradient(90deg, rgba(8, 12, 10, 0.55) 0%, transparent 55%);
+}
+
+.nemi-dest-hero-content {
+  position: relative;
+  z-index: 2;
+  width: min(40rem, 100%);
+  margin-top: 1.25rem;
+  animation: nemi-dest-hero-copy 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nemi-dest-hero-title {
+  margin: 0;
+  font-size: clamp(2.6rem, 7vw, 4.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: #f5f2eb;
+}
+
+.nemi-dest-hero-location {
+  margin: 0.85rem 0 0;
+  font-size: 0.95rem;
+  color: rgba(245, 242, 235, 0.62);
+}
+
+.nemi-dest-hero-desc {
+  margin: 1rem 0 0;
+  max-width: 32rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: rgba(245, 242, 235, 0.78);
+}
+
+.nemi-dest-hero-live {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  max-width: 26rem;
+}
+
+.nemi-dest-hero-live:has(.nemi-dest-hero-live-item:only-child) {
+  grid-template-columns: 1fr;
+  max-width: 13rem;
+}
+
+.nemi-dest-hero-live-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem 1.15rem 1.1rem;
+  border: 1px solid rgba(245, 242, 235, 0.28);
+  background:
+    linear-gradient(160deg, rgba(245, 242, 235, 0.1), rgba(8, 12, 10, 0.35)),
+    rgba(8, 12, 10, 0.48);
+  backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(245, 242, 235, 0.12);
+}
+
+.nemi-dest-hero-live-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(245, 242, 235, 0.7);
+}
+
+.nemi-dest-hero-live-value {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: clamp(1.75rem, 3.6vw, 2.2rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #f5f2eb;
+}
+
+.nemi-dest-hero-live-value .nemi-dest-hero-live-time {
+  font-size: inherit;
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+}
+
+.nemi-dest-hero-weather-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  align-self: center;
+  color: var(--accent);
+}
+
+.nemi-dest-hero-temp {
+  font-variant-numeric: tabular-nums;
+}
+
+.nemi-dest-hero-weather-label {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: rgba(245, 242, 235, 0.78);
+  align-self: center;
+}
+
+.nemi-dest-hero-cta {
+  margin-top: 1.45rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.nemi-dest-hero-cta .nemi-btn {
+  min-width: 10rem;
+  min-height: 2.75rem;
+  border-radius: 999px;
+  padding-inline: 1.35rem;
+  font-weight: 600;
+}
+
+.nemi-dest-hero-cta .nemi-btn-ghost {
+  border-color: rgba(245, 242, 235, 0.42);
+  color: #f5f2eb;
+  background: rgba(8, 12, 10, 0.28);
+}
+
+.nemi-dest-hero-cta .nemi-btn-ghost:hover {
+  border-color: rgba(245, 242, 235, 0.7);
+  background: rgba(8, 12, 10, 0.42);
+  color: #fff;
+}
+
+.nemi-dest-hero-live-time {
+  font-variant-numeric: tabular-nums;
+  text-transform: lowercase;
+}
+
+/* Sticky section nav */
+.nemi-dest-nav {
+  position: sticky;
+  top: 3.5rem;
+  z-index: 30;
+  border-bottom: 1px solid var(--border);
+  background: rgba(10, 12, 15, 0.88);
+  backdrop-filter: blur(14px);
+}
+
+.nemi-dest-nav-track {
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  padding: 0;
+  scrollbar-width: none;
+}
+
+.nemi-dest-nav-track::-webkit-scrollbar {
+  display: none;
+}
+
+.nemi-dest-nav-tab {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding: 0.95rem 1rem;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nemi-dest-nav-tab-icon {
+  display: inline-flex;
+  opacity: 0.85;
+}
+
+.nemi-dest-nav-tab:hover {
+  color: var(--foreground);
+}
+
+.nemi-dest-nav-tab.is-active {
+  color: var(--accent);
+}
+
+.nemi-dest-nav-tab.is-active::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+/* Overview bands */
+.nemi-dest-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+#cultura,
+#mapa,
+#explorar-lugares,
+#resumen {
+  scroll-margin-top: 7rem;
+}
+
+.nemi-dest-band {
+  padding: clamp(3rem, 7vw, 5rem) 0;
+  border-bottom: 1px solid rgba(245, 242, 235, 0.08);
+}
+
+.nemi-dest-band-eyebrow {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.nemi-dest-culture-intro h2,
+.nemi-dest-paths-head h2,
+.nemi-dest-map-head-copy h2 {
+  margin: 0.55rem 0 0;
+  font-size: clamp(1.65rem, 3vw, 2.15rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #f5f2eb;
+}
+
+.nemi-dest-culture-intro > p,
+.nemi-dest-paths-head > p,
+.nemi-dest-map-head-copy > p {
+  margin: 0.7rem 0 0;
+  max-width: 28rem;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* Cultura: simple + llamativo */
+.nemi-dest-culture {
+  position: relative;
+  padding: clamp(2.5rem, 5vw, 3.75rem) 0;
+  border-bottom: 1px solid rgba(245, 242, 235, 0.08);
+  background:
+    radial-gradient(ellipse 55% 70% at 0% 40%, rgba(45, 212, 191, 0.08), transparent 65%),
+    #0e1210;
+}
+
+.nemi-dest-culture-grid {
+  display: grid;
+  gap: 1.75rem;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .nemi-dest-culture-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 2.5rem;
+  }
+}
+
+.nemi-dest-culture-legend {
+  margin: 1.1rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  font-size: 0.84rem;
+  color: rgba(245, 242, 235, 0.58);
+}
+
+.nemi-dest-culture-legend-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.nemi-dest-culture-legend-item strong {
+  font-family: var(--font-display), serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #f5f2eb;
+}
+
+.nemi-dest-culture-legend-item--avoid::before,
+.nemi-dest-culture-legend-item--consider::before,
+.nemi-dest-culture-legend-item--recommended::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  align-self: center;
+}
+
+.nemi-dest-culture-legend-item--avoid::before {
+  background: #f87171;
+}
+.nemi-dest-culture-legend-item--consider::before {
+  background: #fbbf24;
+}
+.nemi-dest-culture-legend-item--recommended::before {
+  background: var(--accent);
+}
+
+.nemi-dest-culture-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(245, 242, 235, 0.12);
+}
+
+.nemi-dest-culture-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.95rem 0.15rem;
+  border-bottom: 1px solid rgba(245, 242, 235, 0.12);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s ease, padding-left 0.25s ease;
+}
+
+.nemi-dest-culture-item:hover {
+  padding-left: 0.45rem;
+  background: linear-gradient(
+    90deg,
+    rgba(245, 242, 235, 0.04),
+    transparent 70%
+  );
+}
+
+.nemi-dest-culture-signal {
+  flex: 0 0 auto;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: 0.45rem;
+  border-radius: 999px;
+  box-shadow: 0 0 0 3px rgba(245, 242, 235, 0.06);
+}
+
+.nemi-dest-culture-item--avoid .nemi-dest-culture-signal {
+  background: #f87171;
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.18);
+}
+.nemi-dest-culture-item--consider .nemi-dest-culture-signal {
+  background: #fbbf24;
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.16);
+}
+.nemi-dest-culture-item--recommended .nemi-dest-culture-signal {
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.18);
+}
+
+.nemi-dest-culture-item-body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.nemi-dest-culture-item-kicker {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245, 242, 235, 0.5);
+}
+
+.nemi-dest-culture-item--avoid .nemi-dest-culture-item-kicker {
+  color: #fca5a5;
+}
+.nemi-dest-culture-item--consider .nemi-dest-culture-item-kicker {
+  color: #fcd34d;
+}
+.nemi-dest-culture-item--recommended .nemi-dest-culture-item-kicker {
+  color: var(--accent);
+}
+
+.nemi-dest-culture-item-title {
+  font-size: 1.02rem;
+  line-height: 1.35;
+  color: #f5f2eb;
+}
+
+.nemi-dest-culture-empty {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.nemi-dest-text-link {
+  margin-top: 1.1rem;
+  display: inline-flex;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.nemi-dest-text-link:hover {
+  text-decoration: underline;
+}
+
+/* Paths (categories) */
+.nemi-dest-paths {
+  padding: clamp(3rem, 7vw, 5rem) 0;
+  border-bottom: 1px solid rgba(245, 242, 235, 0.08);
+}
+
+.nemi-dest-paths-head {
+  margin-bottom: 1.75rem;
+}
+
+.nemi-dest-paths-row {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .nemi-dest-paths-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .nemi-dest-paths-row {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.nemi-dest-path {
+  display: block;
+  position: relative;
+  min-height: 16.5rem;
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+}
+
+.nemi-dest-path-photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.04);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nemi-dest-path::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 12, 10, 0.15) 0%,
+    rgba(8, 12, 10, 0.78) 100%
+  );
+  transition: background 0.35s ease;
+}
+
+.nemi-dest-path:hover .nemi-dest-path-photo {
+  transform: scale(1.1);
+}
+
+.nemi-dest-path:hover::after {
+  background: linear-gradient(
+    180deg,
+    rgba(8, 12, 10, 0.08) 0%,
+    rgba(8, 12, 10, 0.7) 100%
+  );
+}
+
+.nemi-dest-path-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  min-height: 16.5rem;
+  padding: 1.15rem;
+}
+
+.nemi-dest-path-icon {
+  display: inline-flex;
+  margin-bottom: 0.55rem;
+  color: var(--accent);
+}
+
+.nemi-dest-path-copy h3 {
+  margin: 0;
+  font-family: var(--font-display), serif;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: #f5f2eb;
+}
+
+.nemi-dest-path-copy p {
+  margin: 0.3rem 0 0;
+  font-size: 0.88rem;
+  color: rgba(245, 242, 235, 0.7);
+}
+
+/* Map — mismo ritmo que Explorar lugares */
+.nemi-dest-map-band {
+  padding: clamp(2.75rem, 5.5vw, 4rem) 0 3.25rem;
+}
+
+.nemi-dest-map-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.nemi-dest-map-head .nemi-btn {
+  flex: 0 0 auto;
+  min-height: 2.65rem;
+  border-radius: 999px;
+  padding-inline: 1.25rem;
+  font-weight: 600;
+}
+
+.nemi-dest-map-stage {
+  position: relative;
+  min-height: 280px;
+  height: clamp(280px, 38vw, 380px);
+  overflow: hidden;
+  border: 1px solid rgba(245, 242, 235, 0.12);
+  background: #0d1117;
+}
+
+.nemi-dest-map-stage-link {
+  position: absolute;
+  inset: 0;
+  z-index: 450;
+  cursor: pointer;
+}
+
+.nemi-dest-map-stage:hover {
+  border-color: rgba(45, 212, 191, 0.35);
+}
+
+.nemi-dest-map-preview {
+  position: absolute;
+  inset: 0;
+}
+
+.nemi-dest-map-preview-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 60%, rgba(10, 12, 15, 0.4) 100%),
+    radial-gradient(ellipse 80% 70% at 50% 45%, transparent 42%, rgba(10, 12, 15, 0.28) 100%);
+  z-index: 400;
+}
+
+.nemi-dest-map-skeleton {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 40% at 55% 45%, rgba(45, 212, 191, 0.12), transparent 70%),
+    #0d1117;
+}
+
+.nemi-map-preview-canvas .leaflet-container {
+  background: #0d1117;
+  font-family: var(--font-sans), sans-serif;
+}
+
+.nemi-map-preview-canvas .leaflet-control-container {
+  display: none;
+}
+
+@keyframes nemi-dest-hero-copy {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nemi-dest-hero-ken {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1.02);
+  }
+}
+
+@media (max-width: 639px) {
+  .nemi-dest-hero {
+    min-height: min(92dvh, 40rem);
+    align-items: center;
+    padding-bottom: 4rem;
+  }
+
+  .nemi-dest-hero-content {
+    margin-top: 0.75rem;
+  }
+
+  .nemi-dest-hero-live {
+    max-width: none;
+  }
+
+  .nemi-dest-hero-live-item {
+    padding: 0.9rem 0.95rem 1rem;
+  }
+
+  .nemi-dest-hero-cta .nemi-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .nemi-dest-map-head .nemi-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nemi-dest-map-stage {
+    height: 250px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nemi-dest-hero-content,
+  .nemi-dest-hero-photo,
+  .nemi-dest-path-photo,
+  .nemi-dest-culture-item {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}

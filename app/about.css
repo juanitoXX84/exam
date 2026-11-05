@@ -1,0 +1,523 @@
+/* Conócenos — misma marca, composición distinta al home */
+
+.nemi-about-page {
+  position: relative;
+  overflow-x: clip;
+  background: #0e1210;
+  color: #f2efe8;
+}
+
+.nemi-about {
+  --about-muted: rgba(242, 239, 232, 0.58);
+}
+
+body:has(.nemi-about) .nemi-site-header {
+  border-bottom-color: transparent;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 12, 10, 0.6),
+    rgba(8, 12, 10, 0.15)
+  );
+  backdrop-filter: blur(8px);
+}
+
+.nemi-about-eyebrow {
+  margin: 0;
+  font-size: 0.76rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* —— Hero split (no clon del home centrado) —— */
+
+.nemi-about-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  min-height: min(78dvh, 640px);
+  margin-top: -3.5rem;
+  padding-top: 3.5rem;
+}
+
+.nemi-about-hero-media {
+  position: relative;
+  min-height: 280px;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(8, 12, 10, 0.35), transparent 40%),
+    url("/home/slide-japan.jpg") center 42% / cover no-repeat;
+  animation: nemi-about-media-in 1.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nemi-about-hero-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 6vw, 4rem) clamp(1.25rem, 4vw, 3.5rem);
+  background: #121612;
+  animation: nemi-about-rise 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
+}
+
+.nemi-about-title {
+  margin: 0.9rem 0 0;
+  font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #f5f2eb;
+}
+
+.nemi-about-title span {
+  display: block;
+  color: rgba(245, 242, 235, 0.72);
+}
+
+.nemi-about-lead {
+  margin: 1.15rem 0 0;
+  max-width: 28rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--about-muted);
+}
+
+.nemi-about-hero-link {
+  margin-top: 1.6rem;
+  width: fit-content;
+  color: var(--accent);
+  font-size: 0.95rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.nemi-about-hero-link:hover {
+  color: #5eead4;
+}
+
+/* —— Historia 2 columnas —— */
+
+.nemi-about-story {
+  padding: clamp(3.5rem, 9vh, 5.5rem) 0;
+  background: #0e1210;
+  border-top: 1px solid rgba(245, 242, 235, 0.06);
+}
+
+.nemi-about-story-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.nemi-about-story-grid h2 {
+  margin: 0;
+  font-size: clamp(1.9rem, 3.5vw, 2.5rem);
+  font-weight: 500;
+}
+
+.nemi-about-story-grid > div > p {
+  margin: 1rem 0 0;
+  max-width: 34rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--about-muted);
+}
+
+.nemi-about-story-aside {
+  padding: 1.5rem 1.35rem;
+  border-left: 2px solid rgba(45, 212, 191, 0.45);
+  background: rgba(18, 22, 18, 0.65);
+}
+
+.nemi-about-story-aside p {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.5vw, 1.7rem);
+  font-weight: 500;
+  line-height: 1.3;
+  color: #f2efe8;
+}
+
+.nemi-about-story-aside span {
+  display: block;
+  margin-top: 0.85rem;
+  font-size: 0.85rem;
+  color: var(--about-muted);
+}
+
+/* —— Cómo funciona: lista vertical/editorial —— */
+
+.nemi-about-how {
+  padding: clamp(3rem, 8vh, 5rem) 0;
+  background: #121612;
+}
+
+.nemi-about-how-head {
+  max-width: 32rem;
+  margin-bottom: 2rem;
+}
+
+.nemi-about-how-head h2 {
+  margin: 0;
+  font-size: clamp(1.9rem, 3.5vw, 2.5rem);
+  font-weight: 500;
+}
+
+.nemi-about-how-head p {
+  margin: 0.6rem 0 0;
+  color: var(--about-muted);
+}
+
+.nemi-about-how-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid rgba(245, 242, 235, 0.1);
+}
+
+.nemi-about-how-item {
+  border-bottom: 1px solid rgba(245, 242, 235, 0.1);
+}
+
+.nemi-about-how-item > .nemi-reveal {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: 1rem 1.5rem;
+  padding: 1.35rem 0;
+}
+
+.nemi-about-how-num {
+  font-family: var(--font-display), serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: rgba(45, 212, 191, 0.55);
+}
+
+.nemi-about-how-item h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 650;
+}
+
+.nemi-about-how-item p {
+  margin: 0.35rem 0 0;
+  max-width: 36rem;
+  color: var(--about-muted);
+  line-height: 1.5;
+}
+
+/* —— Módulos —— */
+
+.nemi-about-modules {
+  padding: clamp(3rem, 8vh, 5rem) 0;
+  background: #0e1210;
+  border-top: 1px solid rgba(245, 242, 235, 0.06);
+}
+
+.nemi-about-modules-head {
+  margin-bottom: 1.75rem;
+}
+
+.nemi-about-modules-head h2 {
+  margin: 0;
+  font-size: clamp(1.9rem, 3.5vw, 2.5rem);
+  font-weight: 500;
+}
+
+.nemi-about-modules-head p {
+  margin: 0.6rem 0 0;
+  max-width: 32rem;
+  color: var(--about-muted);
+}
+
+.nemi-about-dest-layout {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .nemi-about-dest-layout {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 2rem;
+    min-height: 19rem;
+  }
+}
+
+.nemi-about-index-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nemi-about-index-list li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.78rem 0.5rem 0.78rem 0;
+  border-bottom: 1px solid rgba(245, 242, 235, 0.08);
+  outline: none;
+}
+
+.nemi-about-index-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 22%;
+  bottom: 22%;
+  width: 2px;
+  border-radius: 999px;
+  background: var(--accent);
+  opacity: 0;
+  transform: scaleY(0.4);
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+
+.nemi-about-index-list li.is-active::before,
+.nemi-about-index-list li:hover::before,
+.nemi-about-index-list li:focus-visible::before {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.nemi-about-index-num {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(242, 239, 232, 0.35);
+}
+
+.nemi-about-index-list li.is-active .nemi-about-index-num,
+.nemi-about-index-list li:hover .nemi-about-index-num {
+  color: var(--accent);
+}
+
+.nemi-about-index-name {
+  font-size: 1.02rem;
+  font-weight: 550;
+  color: rgba(242, 239, 232, 0.72);
+}
+
+.nemi-about-index-list li.is-active .nemi-about-index-name,
+.nemi-about-index-list li:hover .nemi-about-index-name {
+  color: #f2efe8;
+}
+
+.nemi-about-dest-panel {
+  position: relative;
+  padding: 1.5rem 1.35rem;
+  border: 1px solid rgba(245, 242, 235, 0.08);
+  background: #121612;
+  overflow: hidden;
+}
+
+.nemi-about-dest-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.55;
+}
+
+.nemi-about-dest-panel-inner {
+  animation: nemi-about-panel-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes nemi-about-panel-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.nemi-about-dest-panel-num {
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+.nemi-about-dest-panel-title {
+  margin-top: 0.35rem;
+  font-family: var(--font-display), serif;
+  font-size: clamp(1.5rem, 3vw, 1.85rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.nemi-about-dest-panel-tagline {
+  margin-top: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 550;
+  color: #5eead4;
+}
+
+.nemi-about-dest-panel-copy {
+  margin-top: 0.85rem;
+  max-width: 28rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--about-muted);
+}
+
+.nemi-about-dest-panel-points {
+  display: grid;
+  gap: 0.45rem;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nemi-about-dest-panel-points li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.88rem;
+  color: rgba(242, 239, 232, 0.85);
+}
+
+.nemi-about-dest-panel-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+/* —— Alcance: franja —— */
+
+.nemi-about-scope {
+  padding: clamp(2.5rem, 6vh, 3.5rem) 0;
+  background: #121612;
+  border-top: 1px solid rgba(245, 242, 235, 0.06);
+}
+
+.nemi-about-scope-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem 2rem;
+}
+
+.nemi-about-scope-grid h3 {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.nemi-about-scope-grid p {
+  margin: 0.55rem 0 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgba(242, 239, 232, 0.78);
+}
+
+/* —— Footer compacto —— */
+
+.nemi-about-footer {
+  padding: clamp(2.75rem, 7vh, 4rem) 0;
+  background: #0e1210;
+  border-top: 1px solid rgba(245, 242, 235, 0.08);
+}
+
+.nemi-about-footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.nemi-about-footer-row h2 {
+  margin: 0.55rem 0 0;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 500;
+}
+
+.nemi-about-footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.nemi-about-footer-actions .nemi-btn {
+  min-height: 2.7rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.nemi-about-footer-actions .nemi-btn-ghost {
+  border-color: rgba(245, 242, 235, 0.28);
+  color: #f5f2eb;
+}
+
+@keyframes nemi-about-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nemi-about-media-in {
+  from {
+    opacity: 0;
+    clip-path: inset(0 42% 0 0);
+    transform: scale(1.08);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 900px) {
+  .nemi-about-hero {
+    grid-template-columns: 1fr;
+    min-height: unset;
+  }
+
+  .nemi-about-hero-media {
+    min-height: 42vw;
+    order: -1;
+  }
+
+  .nemi-about-story-grid,
+  .nemi-about-scope-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nemi-about-footer-row {
+    align-items: start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nemi-about-hero-media,
+  .nemi-about-hero-panel,
+  .nemi-about-dest-panel-inner {
+    animation: none !important;
+  }
+}

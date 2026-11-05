@@ -1,0 +1,253 @@
+/* Panel de administración NEMI */
+
+.nemi-admin-shell {
+  padding-block: 2rem 3rem;
+}
+
+.nemi-admin-header {
+  margin-bottom: 1.75rem;
+}
+
+.nemi-admin-kicker {
+  font-size: 0.68rem;
+  font-weight: 550;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.nemi-admin-title {
+  margin-top: 0.35rem;
+  font-family: var(--font-display), serif;
+  font-size: clamp(1.65rem, 3vw, 2.15rem);
+  letter-spacing: -0.02em;
+}
+
+.nemi-admin-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.5rem;
+}
+
+.nemi-admin-nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.42rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+.nemi-admin-nav-link:hover {
+  border-color: var(--border-strong);
+  color: var(--foreground);
+}
+
+.nemi-admin-nav-link.is-active {
+  border-color: rgba(45, 212, 191, 0.45);
+  background: rgba(45, 212, 191, 0.1);
+  color: var(--accent);
+}
+
+.nemi-admin-grid {
+  display: grid;
+  gap: 0.85rem;
+}
+
+@media (min-width: 640px) {
+  .nemi-admin-grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .nemi-admin-grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.nemi-admin-card {
+  display: block;
+  padding: 1rem 1.05rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--surface);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 180ms ease;
+}
+
+.nemi-admin-card:hover {
+  border-color: rgba(45, 212, 191, 0.38);
+}
+
+.nemi-admin-card-title {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.nemi-admin-card-desc {
+  margin-top: 0.35rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.nemi-admin-card-meta {
+  margin-top: 0.55rem;
+  font-size: 0.72rem;
+  color: var(--accent);
+}
+
+.nemi-admin-panel {
+  padding: 1.1rem 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.04), transparent 55%),
+    rgba(255, 255, 255, 0.02);
+}
+
+.nemi-admin-panel + .nemi-admin-panel {
+  margin-top: 1rem;
+}
+
+.nemi-admin-form {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.nemi-admin-form-row {
+  display: grid;
+  gap: 0.85rem;
+}
+
+@media (min-width: 640px) {
+  .nemi-admin-form-row--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.nemi-admin-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.nemi-admin-field textarea {
+  min-height: 5.5rem;
+  resize: vertical;
+}
+
+.nemi-admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.nemi-admin-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.nemi-admin-list-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.nemi-admin-list-title {
+  font-weight: 550;
+  color: var(--foreground);
+}
+
+.nemi-admin-list-meta {
+  margin-top: 0.25rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.nemi-admin-badge {
+  display: inline-flex;
+  padding: 0.18rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+
+.nemi-admin-badge.is-active {
+  border-color: rgba(45, 212, 191, 0.35);
+  color: var(--accent);
+}
+
+.nemi-admin-badge.is-danger {
+  border-color: rgba(248, 113, 113, 0.35);
+  color: #fca5a5;
+}
+
+.nemi-admin-btn-danger {
+  border-color: rgba(248, 113, 113, 0.35);
+  color: #fca5a5;
+}
+
+.nemi-admin-btn-danger:hover {
+  border-color: rgba(248, 113, 113, 0.55);
+  color: #fecaca;
+}
+
+.nemi-admin-stars {
+  color: #fcd34d;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 639px) {
+  .nemi-admin-header {
+    margin-bottom: 1.15rem;
+  }
+
+  .nemi-admin-title {
+    font-size: clamp(1.35rem, 6vw, 1.85rem);
+    line-height: 1.15;
+  }
+
+  .nemi-admin-nav {
+    gap: 0.35rem;
+  }
+
+  .nemi-admin-nav-link {
+    padding: 0.38rem 0.72rem;
+    font-size: 0.78rem;
+  }
+
+  .nemi-admin-list-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nemi-admin-list-item .nemi-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nemi-admin-panel {
+    padding: 0.95rem;
+  }
+
+  .nemi-admin-actions .nemi-btn {
+    flex: 1 1 auto;
+    min-width: calc(50% - 0.25rem);
+  }
+}

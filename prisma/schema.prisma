@@ -1,0 +1,527 @@
+// NEMI — Schema de base de datos
+// Preparado para múltiples destinos; v1 solo seedeará SLRC.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Autenticación y autorización (Auth.js + RBAC)
+// ---------------------------------------------------------------------------
+
+enum RoleName {
+  TOURIST
+  ESTABLISHMENT
+  ADMIN
+}
+
+model Role {
+  id          String   @id @default(cuid())
+  name        RoleName @unique
+  description String?
+  users       User[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  passwordHash  String?
+  isActive      Boolean   @default(true)
+  roleId        String
+  role          Role      @relation(fields: [roleId], references: [id])
+
+  accounts            Account[]
+  sessions            Session[]
+  favorites           Favorite[]
+  favoriteRemovals    FavoriteRemoval[]
+  reviews             Review[]
+  reviewDeletions     ReviewDeletion[]
+  reservations        Reservation[]
+  reports             Report[]
+  ownedEstablishments Establishment[] @relation("EstablishmentOwner")
+  trips               Trip[]
+  destinationVisits   DestinationVisit[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([roleId])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ---------------------------------------------------------------------------
+// Destinos (multi-destino a nivel de datos; UI v1 solo SLRC)
+// ---------------------------------------------------------------------------
+
+enum DestinationStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Destination {
+  id          String            @id @default(cuid())
+  slug        String            @unique
+  name        String
+  region      String?
+  country     String
+  countryCode String            @db.Char(2)
+  description String?           @db.Text
+  coverImage  String?
+  latitude    Float?
+  longitude   Float?
+  status      DestinationStatus @default(DRAFT)
+  timezone    String?
+
+  establishments    Establishment[]
+  culturalGuides    CulturalGuide[]
+  emergencyServices EmergencyService[]
+  events            Event[]
+  categories        Category[]
+  trips             Trip[]
+  destinationVisits DestinationVisit[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DestinationVisit {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  destinationId String
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  visitedAt     DateTime    @default(now()) @updatedAt
+
+  @@unique([userId, destinationId])
+  @@index([userId, visitedAt])
+}
+
+// ---------------------------------------------------------------------------
+// Categorías y establecimientos
+// ---------------------------------------------------------------------------
+
+enum EstablishmentType {
+  RESTAURANT
+  LODGING
+  ATTRACTION
+  CLINIC
+  HOSPITAL
+  PHARMACY
+  GAS_STATION
+  BANK
+  OTHER_SERVICE
+}
+
+enum VerificationStatus {
+  PENDING
+  VERIFIED
+  REPORTED
+}
+
+enum PriceRange {
+  BUDGET
+  MODERATE
+  EXPENSIVE
+  LUXURY
+}
+
+model Category {
+  id            String             @id @default(cuid())
+  destinationId String?
+  destination   Destination?       @relation(fields: [destinationId], references: [id], onDelete: SetNull)
+  name          String
+  slug          String
+  description   String?
+  type          EstablishmentType?
+  isGlobal      Boolean            @default(false)
+
+  establishments EstablishmentCategory[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([destinationId, slug])
+  @@index([destinationId])
+}
+
+model Establishment {
+  id                  String              @id @default(cuid())
+  destinationId       String
+  destination         Destination         @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  ownerId             String?
+  owner               User?               @relation("EstablishmentOwner", fields: [ownerId], references: [id], onDelete: SetNull)
+  type                EstablishmentType
+  slug                String
+  name                String
+  description         String?             @db.Text
+  address             String?
+  phone               String?
+  email               String?
+  website             String?
+  latitude            Float?
+  longitude           Float?
+  priceRange          PriceRange?
+  averageRating       Float?              @default(0)
+  reviewCount         Int                 @default(0)
+  openingHours        Json?
+  amenities           Json?
+  images              Json?
+  acceptsReservations Boolean             @default(false)
+  isActive            Boolean             @default(true)
+  verificationStatus  VerificationStatus  @default(PENDING)
+  lastVerifiedAt      DateTime?
+  sourceNote          String?
+
+  categories   EstablishmentCategory[]
+  favorites    Favorite[]
+  favoriteRemovals FavoriteRemoval[]
+  reviews      Review[]
+  reviewDeletions ReviewDeletion[]
+  reservations Reservation[]
+  reports      Report[]
+  tripPlaces   TripPlace[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([destinationId, slug])
+  @@index([destinationId, type])
+  @@index([ownerId])
+  @@index([verificationStatus])
+}
+
+model EstablishmentCategory {
+  establishmentId String
+  categoryId      String
+  establishment   Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+  category        Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([establishmentId, categoryId])
+}
+
+// ---------------------------------------------------------------------------
+// Orientación cultural (módulo principal)
+// ---------------------------------------------------------------------------
+
+enum CulturalSignal {
+  AVOID
+  CONSIDER
+  RECOMMENDED
+}
+
+enum CulturalNormKind {
+  LAW
+  SOCIAL_NORM
+  CUSTOM
+  SAFETY
+}
+
+enum ImportanceLevel {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+model CulturalCategory {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  guides      CulturalGuide[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CulturalGuide {
+  id                 String             @id @default(cuid())
+  destinationId      String
+  destination        Destination        @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  categoryId         String?
+  category           CulturalCategory?  @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  title              String
+  slug               String
+  summary            String?
+  description        String             @db.Text
+  context            String?            @db.Text
+  whatToDo           String?            @db.Text
+  whatToAvoid        String?            @db.Text
+  signal             CulturalSignal
+  normKind           CulturalNormKind
+  importance         ImportanceLevel    @default(MEDIUM)
+  source             String?
+  verificationStatus VerificationStatus @default(PENDING)
+  lastVerifiedAt     DateTime?
+  publishedAt        DateTime?
+  isPublished        Boolean            @default(false)
+
+  reports Report[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([destinationId, slug])
+  @@index([destinationId, signal])
+  @@index([normKind])
+}
+
+// ---------------------------------------------------------------------------
+// Emergencias y eventos
+// ---------------------------------------------------------------------------
+
+model EmergencyService {
+  id            String            @id @default(cuid())
+  destinationId String
+  destination   Destination       @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  name          String
+  type          EstablishmentType
+  phone         String?
+  address       String?
+  latitude      Float?
+  longitude     Float?
+  notes         String?           @db.Text
+  isOfficial    Boolean           @default(false)
+  sourceNote    String?
+  isActive      Boolean           @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([destinationId, type])
+}
+
+model Event {
+  id            String      @id @default(cuid())
+  destinationId String
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  title         String
+  slug          String
+  description   String?     @db.Text
+  startsAt      DateTime?
+  endsAt        DateTime?
+  locationName  String?
+  isPublished   Boolean     @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([destinationId, slug])
+  @@index([destinationId])
+}
+
+// ---------------------------------------------------------------------------
+// Interacción de usuarios
+// ---------------------------------------------------------------------------
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  REJECTED
+  CANCELLED
+  COMPLETED
+}
+
+model Reservation {
+  id              String            @id @default(cuid())
+  userId          String
+  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  establishmentId String
+  establishment   Establishment     @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+  date            DateTime          @db.Date
+  time            String
+  partySize       Int
+  notes           String?           @db.Text
+  status          ReservationStatus @default(PENDING)
+  responseNote    String?           @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([establishmentId, status])
+}
+
+model Review {
+  id              String        @id @default(cuid())
+  userId          String
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  establishmentId String
+  establishment   Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+  rating          Int
+  comment         String?       @db.Text
+  isVisible       Boolean       @default(true)
+
+  reports Report[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, establishmentId])
+  @@index([establishmentId])
+}
+
+model ReviewDeletion {
+  id              String        @id @default(cuid())
+  userId          String
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  establishmentId String
+  establishment   Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+  reviewCreatedAt DateTime?
+  reviewUpdatedAt DateTime?
+  deletedAt       DateTime      @default(now())
+
+  @@index([userId, deletedAt])
+  @@index([establishmentId])
+}
+
+model Favorite {
+  id              String        @id @default(cuid())
+  userId          String
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  establishmentId String
+  establishment   Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, establishmentId])
+  @@index([userId])
+}
+
+model FavoriteRemoval {
+  id                String        @id @default(cuid())
+  userId            String
+  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  establishmentId   String
+  establishment     Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+  favoriteCreatedAt DateTime?
+  removedAt         DateTime      @default(now())
+
+  @@index([userId, removedAt])
+  @@index([establishmentId])
+}
+
+model Trip {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name            String
+  destinationName String
+  destinationId   String?
+  destination     Destination? @relation(fields: [destinationId], references: [id], onDelete: SetNull)
+  startDate       DateTime? @db.Date
+  endDate         DateTime? @db.Date
+  places          TripPlace[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([destinationId])
+}
+
+model TripPlace {
+  id              String        @id @default(cuid())
+  tripId          String
+  trip            Trip          @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  establishmentId String
+  establishment   Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([tripId, establishmentId])
+  @@index([establishmentId])
+}
+
+enum ReportTargetType {
+  ESTABLISHMENT
+  CULTURAL_GUIDE
+  REVIEW
+}
+
+enum ReportReason {
+  CLOSED_PLACE
+  WRONG_HOURS
+  WRONG_ADDRESS
+  WRONG_PHONE
+  WRONG_CULTURAL_INFO
+  INAPPROPRIATE_REVIEW
+  OTHER
+}
+
+enum ReportStatus {
+  OPEN
+  IN_REVIEW
+  RESOLVED
+  DISMISSED
+}
+
+model Report {
+  id              String           @id @default(cuid())
+  reporterId      String
+  reporter        User             @relation(fields: [reporterId], references: [id], onDelete: Cascade)
+  targetType      ReportTargetType
+  reason          ReportReason
+  description     String?          @db.Text
+  status          ReportStatus     @default(OPEN)
+  establishmentId String?
+  establishment   Establishment?   @relation(fields: [establishmentId], references: [id], onDelete: SetNull)
+  culturalGuideId String?
+  culturalGuide   CulturalGuide?   @relation(fields: [culturalGuideId], references: [id], onDelete: SetNull)
+  reviewId        String?
+  review          Review?          @relation(fields: [reviewId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([reporterId])
+}

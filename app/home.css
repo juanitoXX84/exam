@@ -1,0 +1,614 @@
+/* —— Home hospitality (inspiración editorial / destino) —— */
+
+.nemi-home--idle {
+  background: #0e1210;
+}
+
+.nemi-home--idle ~ * {
+  /* no-op: keep cascade clean */
+}
+
+.nemi-home-landing {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero full-bleed bajo el header */
+.nemi-home-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  margin-top: -3.5rem;
+  padding-top: 3.5rem;
+  overflow: hidden;
+}
+
+.nemi-home-hero-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8, 12, 10, 0.45) 0%,
+      rgba(8, 12, 10, 0.28) 40%,
+      rgba(8, 12, 10, 0.55) 100%
+    );
+}
+
+.nemi-home-hero-content {
+  position: relative;
+  z-index: 2;
+  width: min(40rem, calc(100% - 2rem));
+  margin-inline: auto;
+  padding-block: clamp(1rem, 4vh, 2rem);
+  text-align: center;
+  animation: nemi-home-rise 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nemi-home-hero-brand {
+  margin: 0;
+  font-size: clamp(3.2rem, 9vw, 5.6rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  text-transform: uppercase;
+  color: #f5f2eb;
+}
+
+.nemi-home-hero-lead {
+  margin: 1.25rem auto 0;
+  max-width: 26rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: rgba(245, 242, 235, 0.74);
+}
+
+.nemi-home-hero-cta {
+  margin-top: 1.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.nemi-home-hero-cta .nemi-btn {
+  min-width: 10.5rem;
+  min-height: 2.85rem;
+  border-radius: 999px;
+  padding-inline: 1.45rem;
+  font-weight: 600;
+}
+
+.nemi-home-hero-cta .nemi-btn-ghost {
+  border-color: rgba(245, 242, 235, 0.45);
+  color: #f5f2eb;
+  background: rgba(8, 12, 10, 0.28);
+}
+
+.nemi-home-hero-cta .nemi-btn-ghost:hover {
+  border-color: rgba(245, 242, 235, 0.7);
+  background: rgba(8, 12, 10, 0.42);
+  color: #fff;
+}
+
+/* Atmósfera fotográfica — carrusel por países */
+.nemi-atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.nemi-atmosphere-slide {
+  position: absolute;
+  inset: -3%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 7s ease;
+}
+
+.nemi-atmosphere-slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.nemi-atmosphere-wash {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8, 12, 10, 0.42) 0%,
+      rgba(8, 12, 10, 0.18) 35%,
+      rgba(8, 12, 10, 0.45) 70%,
+      rgba(8, 12, 10, 0.82) 100%
+    );
+}
+
+.nemi-atmosphere-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.nemi-atmosphere-place {
+  position: absolute;
+  left: 1.25rem;
+  bottom: 1.35rem;
+  z-index: 3;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  color: rgba(245, 242, 235, 0.78);
+  pointer-events: none;
+}
+
+.nemi-atmosphere-place-name {
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.nemi-atmosphere-place-detail {
+  font-size: 0.82rem;
+  color: rgba(245, 242, 235, 0.55);
+}
+
+.nemi-atmosphere-dots {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.5rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  pointer-events: auto;
+}
+
+.nemi-atmosphere-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(245, 242, 235, 0.28);
+  cursor: pointer;
+  transition:
+    background-color 220ms ease,
+    transform 220ms ease;
+}
+
+.nemi-atmosphere-dot:hover {
+  transform: scale(1.45);
+  background: rgba(245, 242, 235, 0.55);
+}
+
+.nemi-atmosphere-dot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.nemi-atmosphere-dot.is-active {
+  background: var(--accent);
+  transform: scale(1.2);
+}
+
+.nemi-atmosphere-dot.is-active:hover {
+  transform: scale(1.45);
+}
+
+/* Intro editorial centrada */
+.nemi-home-intro {
+  background: #121612;
+  padding: clamp(4rem, 12vh, 7rem) 0;
+}
+
+.nemi-home-intro-inner {
+  max-width: 40rem;
+  text-align: center;
+}
+
+.nemi-home-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-bottom: 1.75rem;
+}
+
+.nemi-home-ornament > span:not(.nemi-home-ornament-mark) {
+  display: block;
+  width: 3.5rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(45, 212, 191, 0.45),
+    transparent
+  );
+}
+
+.nemi-home-ornament-mark {
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--accent);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: rgba(45, 212, 191, 0.2);
+}
+
+.nemi-home-intro-eyebrow {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.nemi-home-intro-title {
+  margin: 0.85rem 0 0;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #f2efe8;
+}
+
+.nemi-home-intro-sub {
+  margin: 0.85rem 0 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(242, 239, 232, 0.65);
+}
+
+.nemi-home-intro-body {
+  margin: 1.35rem auto 0;
+  max-width: 34rem;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: rgba(242, 239, 232, 0.58);
+}
+
+/* Destino featured */
+.nemi-home-destination {
+  background: #0e1210;
+  padding: clamp(3.5rem, 10vh, 6rem) 0;
+}
+
+.nemi-home-destination-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+}
+
+.nemi-home-destination-frame {
+  position: relative;
+  min-height: clamp(280px, 42vw, 420px);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.nemi-home-destination-photo {
+  position: absolute;
+  inset: 0;
+  background-color: #1a221c;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 7s ease;
+}
+
+.nemi-home-destination-photo.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.nemi-home-destination-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(12, 16, 14, 0.12),
+    rgba(12, 16, 14, 0.4)
+  );
+  pointer-events: none;
+}
+
+.nemi-home-destination-caption {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  padding: 0.4rem 0.7rem;
+  background: rgba(10, 14, 12, 0.72);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(245, 242, 235, 0.88);
+}
+
+.nemi-home-destination-copy-inner {
+  animation: nemi-home-dest-copy-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nemi-home-destination-kicker {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.nemi-home-destination-title {
+  margin: 0.65rem 0 0;
+  font-size: clamp(2rem, 4vw, 2.85rem);
+  font-weight: 500;
+  line-height: 1.1;
+  color: #f2efe8;
+}
+
+.nemi-home-destination-body {
+  margin: 1rem 0 0;
+  max-width: 28rem;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: rgba(242, 239, 232, 0.62);
+  min-height: 4.8em;
+}
+
+.nemi-home-destination-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.35rem;
+  margin-top: 1.6rem;
+  min-height: 2.85rem;
+}
+
+.nemi-home-destination-soon {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.85rem;
+  padding-inline: 1.35rem;
+  border: 1px solid rgba(245, 242, 235, 0.22);
+  border-radius: 999px;
+  color: rgba(245, 242, 235, 0.72);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.nemi-home-dest-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.35rem;
+}
+
+.nemi-home-dest-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(245, 242, 235, 0.28);
+  cursor: pointer;
+  transition:
+    background-color 220ms ease,
+    transform 220ms ease;
+}
+
+.nemi-home-dest-dot:hover {
+  transform: scale(1.45);
+  background: rgba(245, 242, 235, 0.55);
+}
+
+.nemi-home-dest-dot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.nemi-home-dest-dot.is-active {
+  background: var(--accent);
+  transform: scale(1.2);
+}
+
+.nemi-home-dest-dot.is-active:hover {
+  transform: scale(1.45);
+}
+
+@keyframes nemi-home-dest-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nemi-home-text-link {
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.nemi-home-text-link:hover {
+  color: #5eead4;
+}
+
+/* Paths */
+.nemi-home-paths {
+  background: #121612;
+  padding: clamp(3rem, 8vh, 5rem) 0 4.5rem;
+  border-top: 1px solid rgba(245, 242, 235, 0.06);
+}
+
+.nemi-home-paths-head {
+  max-width: 36rem;
+  margin-bottom: 2rem;
+}
+
+.nemi-home-paths-head h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 500;
+  color: #f2efe8;
+}
+
+.nemi-home-paths-head p {
+  margin: 0.65rem 0 0;
+  color: rgba(242, 239, 232, 0.55);
+}
+
+.nemi-home-paths-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem 2rem;
+}
+
+.nemi-home-paths-row article {
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(45, 212, 191, 0.28);
+}
+
+.nemi-home-paths-row h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 650;
+  color: #f2efe8;
+}
+
+.nemi-home-paths-row p {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(242, 239, 232, 0.55);
+}
+
+.nemi-explore-kicker {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.nemi-site-header {
+  border-bottom: 1px solid transparent;
+  background: rgba(8, 12, 10, 0.35);
+  backdrop-filter: blur(10px);
+}
+
+body:has(.nemi-home--idle) .nemi-site-header {
+  border-bottom-color: transparent;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 12, 10, 0.55),
+    rgba(8, 12, 10, 0.12)
+  );
+  backdrop-filter: blur(8px);
+}
+
+.nemi-header-link {
+  color: rgba(245, 242, 235, 0.78);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.nemi-header-link:hover,
+.nemi-header-link.is-active {
+  color: #f5f2eb;
+}
+
+.nemi-explore--live {
+  background: var(--background);
+}
+
+body:has(.nemi-explore--live) .nemi-site-header {
+  border-bottom: 1px solid var(--border);
+  background: rgba(12, 16, 20, 0.92);
+}
+
+@keyframes nemi-home-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nemi-atmosphere-ken {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+@media (max-width: 900px) {
+  .nemi-home-destination-grid,
+  .nemi-home-paths-row {
+    grid-template-columns: 1fr;
+  }
+
+  .nemi-home-destination-frame {
+    min-height: 240px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nemi-home-hero-content,
+  .nemi-atmosphere-slide,
+  .nemi-home-destination-photo,
+  .nemi-home-destination-copy-inner {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .nemi-atmosphere-slide,
+  .nemi-home-destination-photo {
+    transform: none;
+  }
+
+  .nemi-atmosphere-slide.is-active,
+  .nemi-home-destination-photo.is-active {
+    opacity: 1;
+  }
+}
